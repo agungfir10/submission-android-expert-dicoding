@@ -1,22 +1,19 @@
 package com.agungfir.veemoov.favorite
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.agungfir.core.ui.MovieAdapter
 import com.agungfir.veemoov.databinding.FragmentFavoriteBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteFragment : Fragment() {
 
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
-    private val favoriteViewModel: FavoriteViewModel by viewModel()
-    private lateinit var movieAdapter: MovieAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,32 +27,23 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        if (activity != null) {
-
-            favoriteViewModel.favoriteMovies.observe(viewLifecycleOwner) {
-                if (it.isNotEmpty()) {
-                    binding.rvMovies.visibility = View.VISIBLE
-                    movieAdapter = MovieAdapter()
-                    movieAdapter.setData(it)
-                    binding.rvMovies.adapter = movieAdapter
-                }
-            }
-        }
-
-        binding.fabFavoriteFeature.setOnClickListener {
+        binding.btnGotoFavoriteFeature.setOnClickListener {
             gotoFavoriteFeature()
         }
     }
 
     private fun gotoFavoriteFeature() {
         try {
-            startActivity(Intent(requireActivity(), Class.forName("com.agungfir.favorite")))
+            moveToFavoriteActivity()
         } catch (e: Exception) {
             Toast.makeText(requireActivity(), "Module not found", Toast.LENGTH_SHORT).show()
         }
     }
 
+    private fun moveToFavoriteActivity() {
+        val uri = Uri.parse("veemoov://favorite")
+        startActivity(Intent(Intent.ACTION_VIEW, uri))
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

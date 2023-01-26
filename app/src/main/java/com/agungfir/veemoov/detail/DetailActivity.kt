@@ -2,8 +2,9 @@ package com.agungfir.veemoov.detail
 
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.os.Build
 import android.os.Bundle
-import android.widget.Toast
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.agungfir.core.domain.model.Movie
@@ -24,7 +25,11 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val movie = intent.getParcelableExtra<Movie>(EXTRA_DATA)
+        val movie = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra(EXTRA_DATA, Movie::class.java)
+        } else {
+            intent.getParcelableExtra(EXTRA_DATA)
+        }
         showDetailMovie(movie)
         setupToolbar()
     }
@@ -74,6 +79,15 @@ class DetailActivity : AppCompatActivity() {
             PorterDuff.Mode.MULTIPLY
         )
         binding.fabFavorite.setImageDrawable(drawable)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+
     }
 
     companion object {

@@ -7,7 +7,7 @@
         dist:instant="false"
         dist:title="@string/title_favorite">
         <dist:delivery>
-            <dist:on-demand />
+            <dist:install-time />
         </dist:delivery>
 
         <dist:fusing dist:include="true" />
@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data
                     android:host="favorite"
-                    android:scheme="movieapp" />
+                    android:scheme="veemoov" />
             </intent-filter>
         </activity>
     </application>

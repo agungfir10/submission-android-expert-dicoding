@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="favorite_feature">Favorites</string>
+    <string name="favorite_is_empty_back_to_main_features_to_view_movie">Favorite is Empty!, back to main features to view movie</string>
+    <string name="goto_main_feature">Goto Main Feature</string>
+</resources>
