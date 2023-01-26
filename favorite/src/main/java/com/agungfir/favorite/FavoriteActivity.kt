@@ -49,14 +49,18 @@ class FavoriteActivity : AppCompatActivity() {
     }
 
     private fun renderFavorites() {
-        binding.btnFinish.visibility = View.GONE
-        binding.textView.visibility = View.GONE
-        binding.rvMovies.visibility = View.VISIBLE
+        binding.apply {
+            btnFinish.visibility = View.GONE
+            textView.visibility = View.GONE
+            rvMovies.visibility = View.VISIBLE
+        }
     }
 
     private fun renderEmpty() {
-        binding.btnFinish.visibility = View.VISIBLE
-        binding.textView.visibility = View.VISIBLE
-        binding.rvMovies.visibility = View.GONE
+        binding.apply {
+            btnFinish.visibility = View.VISIBLE
+            textView.visibility = View.VISIBLE
+            rvMovies.visibility = View.GONE
+        }
     }
 }

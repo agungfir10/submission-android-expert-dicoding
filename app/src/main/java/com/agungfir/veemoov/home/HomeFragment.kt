@@ -52,10 +52,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun renderSuccess(data: List<Movie>?) {
-        binding.progressBar.visibility = View.GONE
-        binding.rvMovies.visibility = View.VISIBLE
+        binding.apply {
+            progressBar.visibility = View.GONE
+            rvMovies.visibility = View.VISIBLE
+            rvMovies.adapter = movieAdapter
+        }
         movieAdapter.setData(data)
-        binding.rvMovies.adapter = movieAdapter
 
     }
 
