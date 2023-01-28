@@ -1,14 +1,11 @@
 <resources>
-    <string name="app_name">VeeMoov</string>
+    <string name="app_name">Vee Moov</string>
     <string name="home">Home</string>
     <string name="favorite">Favorite</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="strip_text">-</string>
     <string name="release_date">Release :</string>
     <string name="overview">Overview</string>
     <string name="title_favorite">Favorite</string>
-    <string name="goto_favorite_feature">Goto Favorite Feature</string>
     <string name="you_can_see_favorite_feature_if_you_click_below">You can see favorite feature if you click below</string>
     <string name="click_to_favorite">Click To Favorite</string>
 </resources>
