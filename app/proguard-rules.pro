@@ -100,3 +100,8 @@
 # is used.
 -keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
 ##---------------End: proguard configuration for Retrofit ----------
+
+##---------------Begin: proguard configuration for SQLCipher ----------
+-keep,includedescriptorclasses class net.sqlcipher.** { *; }
+-keep,includedescriptorclasses interface net.sqlcipher.** { *; }
+##---------------End: proguard configuration for SQLCipher ----------

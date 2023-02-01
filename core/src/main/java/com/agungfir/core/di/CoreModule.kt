@@ -10,6 +10,8 @@ import com.agungfir.core.data.source.remote.interceptors.AuthInterceptor
 import com.agungfir.core.data.source.remote.network.ApiService
 import com.agungfir.core.domain.repository.IMovieRepository
 import com.agungfir.core.utils.SettingManager
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,15 +21,19 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
+
 val databaseModule = module {
-    factory { get<MovieDatabase>().movieDao() }
     single {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("veemov".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
             MovieDatabase::class.java, "VeeMoov.db"
         ).fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
             .build()
     }
+    factory { get<MovieDatabase>().movieDao() }
     single {
         SettingManager(androidContext())
     }
