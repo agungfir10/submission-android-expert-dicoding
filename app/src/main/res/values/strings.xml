@@ -8,4 +8,5 @@
     <string name="title_favorite">Favorite</string>
     <string name="you_can_see_favorite_feature_if_you_click_below">You can see favorite feature if you click below</string>
     <string name="click_to_favorite">Click To Favorite</string>
+    <string name="light_mode">Light Mode</string>
 </resources>
