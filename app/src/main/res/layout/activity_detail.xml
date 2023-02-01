@@ -24,15 +24,24 @@
             app:expandedTitleMarginStart="15dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <ImageView
-                android:id="@+id/iv_backdrop_detail"
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerBackdrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"
-                android:contentDescription="@string/cover_movie"
                 android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax" />
+                app:shimmer_colored="true"
+                app:shimmer_duration="1500"
+                app:shimmer_highlight_alpha="1"
+                app:shimmer_highlight_color="@color/pink">
+
+                <ImageView
+                    android:id="@+id/ivBackdropDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/cover_movie"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -41,7 +50,7 @@
                 android:background="@drawable/shadow" />
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/detail_toolbar"
+                android:id="@+id/detailToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:layout_collapseMode="pin"
