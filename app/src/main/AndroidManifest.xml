@@ -4,6 +4,8 @@
     package="com.agungfir.veemoov">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- permission to run task ./gradlew lint -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:name=".VeeMoov"

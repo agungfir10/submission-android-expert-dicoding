@@ -1,5 +1,6 @@
 package com.agungfir.core.ui
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,14 @@ import com.agungfir.core.R
 import com.agungfir.core.databinding.ItemMovieBinding
 import com.agungfir.core.domain.model.Movie
 import com.agungfir.core.utils.Constants
+import com.agungfir.core.utils.DateTimeUtils
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ListViewHolder>() {
 
@@ -38,12 +46,47 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ListViewHolder>() {
         private val binding = ItemMovieBinding.bind(itemView)
         fun bind(data: Movie) {
             with(binding) {
-                Glide.with(itemView.context)
+                Glide
+                    .with(itemView.context)
                     .load(Constants.IMAGE_URL + data.posterPath)
+                    .transform(CenterCrop(), RoundedCorners(18))
+                    .listener(
+                        object : RequestListener<Drawable> {
+                            override fun onLoadFailed(
+                                e: GlideException?,
+                                model: Any?,
+                                target: Target<Drawable>?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                shimmerCover.apply {
+                                    stopShimmer()
+                                    hideShimmer()
+                                }
+                                return false
+                            }
+
+                            override fun onResourceReady(
+                                resource: Drawable?,
+                                model: Any?,
+                                target: Target<Drawable>?,
+                                dataSource: DataSource?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                shimmerCover.apply {
+                                    stopShimmer()
+                                    hideShimmer()
+                                }
+                                return false
+                            }
+                        }
+                    )
                     .into(ivCoverMovie)
-                tvTitleMovie.text = data.title
+                shimmerTitle.stopShimmer()
+                shimmerTitle.hideShimmer()
+                tvTitle.background = null
+                tvTitle.text = data.title
             }
-            binding.tvReleaseDate.text = data.releaseDate
+            binding.tvReleaseDate.text = DateTimeUtils.formatDate(data.releaseDate)
             binding.ratingBar.rating = data.voteAverage.toFloat() / 2
         }
 
@@ -53,4 +96,5 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ListViewHolder>() {
             }
         }
     }
+
 }
