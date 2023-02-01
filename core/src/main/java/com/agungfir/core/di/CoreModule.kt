@@ -9,6 +9,7 @@ import com.agungfir.core.data.source.remote.RemoteDataSource
 import com.agungfir.core.data.source.remote.interceptors.AuthInterceptor
 import com.agungfir.core.data.source.remote.network.ApiService
 import com.agungfir.core.domain.repository.IMovieRepository
+import com.agungfir.core.utils.SettingManager
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -26,6 +27,9 @@ val databaseModule = module {
             MovieDatabase::class.java, "VeeMoov.db"
         ).fallbackToDestructiveMigration()
             .build()
+    }
+    single {
+        SettingManager(androidContext())
     }
 }
 
