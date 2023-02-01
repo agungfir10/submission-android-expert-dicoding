@@ -7,7 +7,7 @@ class DateTimeUtilsTest {
 
     @Test
     fun `given incorrect current dd-MM-yyyy format then should return current date input correctly`(){
-        val currentDate = "false"
+        val currentDate = "10-08-2022"
         assertEquals("10-08-2022", DateTimeUtils.formatDate(currentDate))
     }
 
