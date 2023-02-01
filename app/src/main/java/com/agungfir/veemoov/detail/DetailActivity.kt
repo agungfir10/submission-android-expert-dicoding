@@ -2,6 +2,7 @@ package com.agungfir.veemoov.detail
 
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,9 +10,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.agungfir.core.domain.model.Movie
 import com.agungfir.core.utils.Constants
+import com.agungfir.core.utils.DateTimeUtils
 import com.agungfir.veemoov.R
 import com.agungfir.veemoov.databinding.ActivityDetailBinding
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailActivity : AppCompatActivity() {
@@ -44,7 +50,8 @@ class DetailActivity : AppCompatActivity() {
         movie?.let {
             supportActionBar?.title = movie.title
             binding.content.tvOverviewDetail.text = movie.overview
-            binding.content.tvReleaseDateDetail.text = movie.releaseDate
+            binding.content.tvReleaseDateDetail.text =
+                DateTimeUtils.formatLongDate(movie.releaseDate)
             movie.title.let {
                 binding.detailToolbar.title = it
                 binding.content.tvTitleDetail.text = it
@@ -52,6 +59,35 @@ class DetailActivity : AppCompatActivity() {
             Glide
                 .with(this)
                 .load(Constants.ORIGINAL_IMAGE_URL + movie.backdropPath)
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        binding.shimmerBackdrop.apply {
+                            stopShimmer()
+                            hideShimmer()
+                        }
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        binding.shimmerBackdrop.apply {
+                            stopShimmer()
+                            hideShimmer()
+                        }
+
+                        return false
+                    }
+                })
                 .into(binding.ivBackdropDetail)
 
             Glide
