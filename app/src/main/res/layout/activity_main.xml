@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
+
     <fragment
         android:id="@+id/nav_host_main"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -18,13 +27,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/nav_graph" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabToggleMode"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="@string/light_mode"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
+        app:srcCompat="@drawable/ic_dark_mode" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
